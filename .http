@@ -1,0 +1,8 @@
+POST http://[::]:8000/api/v1/auth
+Content-Type: application/json
+
+{
+    "ip": "",
+    "login": "",
+    "password": ""
+}
