@@ -27,7 +27,7 @@ func init() {
   "basePath": "/api/v1",
   "paths": {
     "/auth": {
-      "post": {
+      "get": {
         "consumes": [
           "application/json"
         ],
@@ -68,7 +68,7 @@ func init() {
             "schema": {
               "type": "object",
               "properties": {
-                "ok": {
+                "passed": {
                   "type": "boolean"
                 }
               }
@@ -79,7 +79,10 @@ func init() {
             "schema": {
               "type": "object",
               "properties": {
-                "ok": {
+                "error": {
+                  "type": "string"
+                },
+                "passed": {
                   "type": "boolean"
                 }
               }
@@ -118,25 +121,15 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": "The IP has been successfully added to whitelist",
+            "description": "The IP has been successfully added to blacklist",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/status_200"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/error_500"
             }
           }
         }
@@ -172,25 +165,33 @@ func init() {
           "200": {
             "description": "The IP has been successfully deleted from blacklist",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/status_200"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/error_500"
             }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "error_500": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "status_200": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
         }
       }
     }
@@ -206,7 +207,7 @@ func init() {
   "basePath": "/api/v1",
   "paths": {
     "/auth": {
-      "post": {
+      "get": {
         "consumes": [
           "application/json"
         ],
@@ -247,7 +248,7 @@ func init() {
             "schema": {
               "type": "object",
               "properties": {
-                "ok": {
+                "passed": {
                   "type": "boolean"
                 }
               }
@@ -258,7 +259,10 @@ func init() {
             "schema": {
               "type": "object",
               "properties": {
-                "ok": {
+                "error": {
+                  "type": "string"
+                },
+                "passed": {
                   "type": "boolean"
                 }
               }
@@ -297,25 +301,15 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": "The IP has been successfully added to whitelist",
+            "description": "The IP has been successfully added to blacklist",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/status_200"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/error_500"
             }
           }
         }
@@ -351,25 +345,33 @@ func init() {
           "200": {
             "description": "The IP has been successfully deleted from blacklist",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/status_200"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/error_500"
             }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "error_500": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "status_200": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
         }
       }
     }

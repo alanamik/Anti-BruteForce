@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"OTUS_hws/Anti-BruteForce/internal/gen/models"
 	"OTUS_hws/Anti-BruteForce/internal/gen/restapi/operations"
 	"OTUS_hws/Anti-BruteForce/internal/redisdb"
 
@@ -9,15 +10,12 @@ import (
 
 func (h *Handler) AddToBL(params operations.BlacklistPutParams) middleware.Responder {
 
-	ctx := params.HTTPRequest.Context()
-	err := h.redisServer.AddToList(ctx, params.HTTPRequest.Host, redisdb.Blacklist)
+	err := h.abf.RedisServer.AddToList(params.HTTPRequest.Context(), *params.Body.IP, redisdb.Blacklist)
 	if err != nil {
-		return operations.NewBlacklistDeleteInternalServerError().WithPayload(&operations.BlacklistDeleteInternalServerErrorBody{
-			Ok: err.Error(),
-		})
+		return operations.NewBlacklistPutInternalServerError().WithPayload(&models.Error500{
+			Error: err.Error(),
+		},
+		)
 	}
-
-	return operations.NewBlacklistDeleteOK().WithPayload(&operations.BlacklistDeleteOKBody{
-		Ok: "The IP has been successfully added to the list",
-	})
+	return operations.NewBlacklistPutOK().WithPayload(&models.Status200{Status: SuccessAddedStatus})
 }

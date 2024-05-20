@@ -267,10 +267,10 @@ func (o *AntiBrutForceAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/auth"] = NewAuthCheck(o.context, o.AuthCheckHandler)
+	o.handlers["GET"]["/auth"] = NewAuthCheck(o.context, o.AuthCheckHandler)
 	if o.handlers["DELETE"] == nil {
 		o.handlers["DELETE"] = make(map[string]http.Handler)
 	}

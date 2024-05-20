@@ -1,3 +1,5 @@
+BIN := "./antibrutforce"
+DOCKER_IMG="--"
 GEN_DIR=internal/gen
 
 swagger-gen:
@@ -11,5 +13,11 @@ swagger-gen:
 	go mod tidy && \
 	git add $(GEN_DIR)
 
-run:
-	go run ./cmd/cmd.go
+run: build
+	$(BIN) -config ./configs/dev.yml
+
+build:
+	go build -v -o $(BIN) ./cmd/cmd.go
+
+run-redis:
+	docker compose up -d

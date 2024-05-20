@@ -9,6 +9,8 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
+	"OTUS_hws/Anti-BruteForce/internal/gen/models"
 )
 
 // BlacklistDeleteOKCode is the HTTP code returned for type BlacklistDeleteOK
@@ -23,7 +25,7 @@ type BlacklistDeleteOK struct {
 	/*
 	  In: Body
 	*/
-	Payload *BlacklistDeleteOKBody `json:"body,omitempty"`
+	Payload *models.Status200 `json:"body,omitempty"`
 }
 
 // NewBlacklistDeleteOK creates BlacklistDeleteOK with default headers values
@@ -33,13 +35,13 @@ func NewBlacklistDeleteOK() *BlacklistDeleteOK {
 }
 
 // WithPayload adds the payload to the blacklist delete o k response
-func (o *BlacklistDeleteOK) WithPayload(payload *BlacklistDeleteOKBody) *BlacklistDeleteOK {
+func (o *BlacklistDeleteOK) WithPayload(payload *models.Status200) *BlacklistDeleteOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the blacklist delete o k response
-func (o *BlacklistDeleteOK) SetPayload(payload *BlacklistDeleteOKBody) {
+func (o *BlacklistDeleteOK) SetPayload(payload *models.Status200) {
 	o.Payload = payload
 }
 
@@ -67,7 +69,7 @@ type BlacklistDeleteInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *BlacklistDeleteInternalServerErrorBody `json:"body,omitempty"`
+	Payload *models.Error500 `json:"body,omitempty"`
 }
 
 // NewBlacklistDeleteInternalServerError creates BlacklistDeleteInternalServerError with default headers values
@@ -77,13 +79,13 @@ func NewBlacklistDeleteInternalServerError() *BlacklistDeleteInternalServerError
 }
 
 // WithPayload adds the payload to the blacklist delete internal server error response
-func (o *BlacklistDeleteInternalServerError) WithPayload(payload *BlacklistDeleteInternalServerErrorBody) *BlacklistDeleteInternalServerError {
+func (o *BlacklistDeleteInternalServerError) WithPayload(payload *models.Error500) *BlacklistDeleteInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the blacklist delete internal server error response
-func (o *BlacklistDeleteInternalServerError) SetPayload(payload *BlacklistDeleteInternalServerErrorBody) {
+func (o *BlacklistDeleteInternalServerError) SetPayload(payload *models.Error500) {
 	o.Payload = payload
 }
 

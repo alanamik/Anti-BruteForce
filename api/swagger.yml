@@ -7,7 +7,7 @@ basePath: /api/v1
  
 paths:
   /auth:
-    post:
+    get:
       operationId: authCheck
       summary: Attempted authorizations
       consumes:
@@ -37,15 +37,17 @@ paths:
           schema: 
             type: object
             properties:
-              ok: 
+              passed: 
                 type: boolean
         500:
           description: Didn't passed 
           schema: 
             type: object
             properties:
-              ok: 
+              passed:
                 type: boolean
+              error:
+                type: string
   /blacklist:
     put:
       operationId: blacklistPut
@@ -67,19 +69,13 @@ paths:
                 type: string
       responses:
         200:
-          description: The IP has been successfully added to whitelist
-          schema: 
-            type: object
-            properties:
-              ok: 
-                type: string
+          description: The IP has been successfully added to blacklist
+          schema:
+            $ref: '#/definitions/status_200'
         500:
           description: Internal Server Error
-          schema: 
-            type: object
-            properties:
-              ok: 
-                type: string
+          schema:
+            $ref: '#/definitions/error_500'
     delete:
       operationId: blacklistDelete
       summary: Request to delete IP from blacklist
@@ -101,17 +97,22 @@ paths:
       responses:
         200:
           description: The IP has been successfully deleted from blacklist
-          schema: 
-            type: object
-            properties:
-              ok: 
-                type: string
+          schema:
+            $ref: '#/definitions/status_200'
         500:
           description: Internal Server Error
-          schema: 
-            type: object
-            properties:
-              ok: 
-                type: string
+          schema:
+            $ref: '#/definitions/error_500'
+definitions:
+  status_200:
+    type: object
+    properties:
+      status:  
+        type: string
+  error_500:
+    type: object
+    properties:
+      error:  
+        type: string
 
   

@@ -9,12 +9,14 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
+	"OTUS_hws/Anti-BruteForce/internal/gen/models"
 )
 
 // BlacklistPutOKCode is the HTTP code returned for type BlacklistPutOK
 const BlacklistPutOKCode int = 200
 
-/*BlacklistPutOK The IP has been successfully added to whitelist
+/*BlacklistPutOK The IP has been successfully added to blacklist
 
 swagger:response blacklistPutOK
 */
@@ -23,7 +25,7 @@ type BlacklistPutOK struct {
 	/*
 	  In: Body
 	*/
-	Payload *BlacklistPutOKBody `json:"body,omitempty"`
+	Payload *models.Status200 `json:"body,omitempty"`
 }
 
 // NewBlacklistPutOK creates BlacklistPutOK with default headers values
@@ -33,13 +35,13 @@ func NewBlacklistPutOK() *BlacklistPutOK {
 }
 
 // WithPayload adds the payload to the blacklist put o k response
-func (o *BlacklistPutOK) WithPayload(payload *BlacklistPutOKBody) *BlacklistPutOK {
+func (o *BlacklistPutOK) WithPayload(payload *models.Status200) *BlacklistPutOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the blacklist put o k response
-func (o *BlacklistPutOK) SetPayload(payload *BlacklistPutOKBody) {
+func (o *BlacklistPutOK) SetPayload(payload *models.Status200) {
 	o.Payload = payload
 }
 
@@ -67,7 +69,7 @@ type BlacklistPutInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *BlacklistPutInternalServerErrorBody `json:"body,omitempty"`
+	Payload *models.Error500 `json:"body,omitempty"`
 }
 
 // NewBlacklistPutInternalServerError creates BlacklistPutInternalServerError with default headers values
@@ -77,13 +79,13 @@ func NewBlacklistPutInternalServerError() *BlacklistPutInternalServerError {
 }
 
 // WithPayload adds the payload to the blacklist put internal server error response
-func (o *BlacklistPutInternalServerError) WithPayload(payload *BlacklistPutInternalServerErrorBody) *BlacklistPutInternalServerError {
+func (o *BlacklistPutInternalServerError) WithPayload(payload *models.Error500) *BlacklistPutInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the blacklist put internal server error response
-func (o *BlacklistPutInternalServerError) SetPayload(payload *BlacklistPutInternalServerErrorBody) {
+func (o *BlacklistPutInternalServerError) SetPayload(payload *models.Error500) {
 	o.Payload = payload
 }
 

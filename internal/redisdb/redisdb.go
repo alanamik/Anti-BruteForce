@@ -17,7 +17,7 @@ const (
 
 var (
 	ErrListDoesNotExist       = errors.New("the list does not exist")
-	ErrIPInList               = errors.New("the IP already added in a list")
+	ErrIPInListYet            = errors.New("the IP already added in a list")
 	ErrInternalServiceRedisDB = errors.New("failed request to RedisDB")
 )
 
@@ -28,7 +28,7 @@ type RedisClient struct {
 func NewClient(con config.Config) *RedisClient {
 	client := redis.NewClient(&redis.Options{
 		Addr:     con.Redis.Address,
-		Password: "",
+		Password: "password",
 		DB:       con.Redis.DB,
 	})
 
@@ -39,44 +39,38 @@ func NewClient(con config.Config) *RedisClient {
 
 func checkListName(name string) error {
 	if name != Whitelist && name != Blacklist {
+		fmt.Println(name)
 		return ErrListDoesNotExist
 	}
 	return nil
 }
 
-// BlackList and Whitelist functions
-func (r *RedisClient) AddToList(ctx context.Context, address string, list string) error {
-	err := checkListName(list)
-	if err != nil {
-		return err
-	}
-
-	isInList, err := r.CheckInList(ctx, list, address)
+func (r *RedisClient) AddToList(ctx context.Context, ip string, list string) error {
+	isInList, err := r.CheckInList(ctx, ip, list)
 	if err != nil {
 		return err
 	}
 	if isInList {
-		return ErrIPInList
+		return ErrIPInListYet
 	}
 
-	r.GetAllIPFromList(ctx, list)
-	addedIP, err := r.Client.LPush(ctx, list, address).Result()
+	addedIP, err := r.Client.LPush(ctx, list, ip).Result()
 	if err != nil {
 		fmt.Println(addedIP)
 		return ErrInternalServiceRedisDB
 	}
 
-	r.GetAllIPFromList(ctx, list)
+	fmt.Println(r.GetAllIPFromList(ctx, list))
 	return nil
 }
 
-func (r *RedisClient) DeleteFromList(ctx context.Context, address string, list string) error {
+func (r *RedisClient) DeleteFromList(ctx context.Context, ip string, list string) error {
 	err := checkListName(list)
 	if err != nil {
 		return err
 	}
 
-	deletedIP, err := r.Client.LRem(ctx, list, 1, address).Result()
+	deletedIP, err := r.Client.LRem(ctx, list, 1, ip).Result()
 	if err != nil {
 		fmt.Println(deletedIP)
 		return ErrInternalServiceRedisDB
@@ -95,7 +89,7 @@ func (r *RedisClient) GetAllIPFromList(ctx context.Context, list string) ([]stri
 	if err != nil {
 		return nil, err
 	}
-	//TODO: удалить вывод потом
+	// TODO: удалить вывод потом
 	for i, val := range ips {
 		fmt.Println(i, "-", val)
 	}
@@ -103,7 +97,7 @@ func (r *RedisClient) GetAllIPFromList(ctx context.Context, list string) ([]stri
 	return ips, nil
 }
 
-func (r *RedisClient) CheckInList(ctx context.Context, list string, ip string) (bool, error) {
+func (r *RedisClient) CheckInList(ctx context.Context, ip string, list string) (bool, error) {
 	err := checkListName(list)
 	if err != nil {
 		return false, err

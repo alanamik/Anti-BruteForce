@@ -7,6 +7,6 @@ redis:
   db: 0
 
 parameters:
-  N: 10
-  M: 100
-  K: 1000
+  limitLogin: 10
+  limitPassword: 100
+  limitIP: 1000

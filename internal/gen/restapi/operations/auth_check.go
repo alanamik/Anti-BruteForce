@@ -34,7 +34,7 @@ func NewAuthCheck(ctx *middleware.Context, handler AuthCheckHandler) *AuthCheck 
 	return &AuthCheck{Context: ctx, Handler: handler}
 }
 
-/* AuthCheck swagger:route POST /auth authCheck
+/* AuthCheck swagger:route GET /auth authCheck
 
 Attempted authorizations
 
@@ -155,8 +155,11 @@ func (o *AuthCheckBody) UnmarshalBinary(b []byte) error {
 // swagger:model AuthCheckInternalServerErrorBody
 type AuthCheckInternalServerErrorBody struct {
 
-	// ok
-	Ok bool `json:"ok,omitempty"`
+	// error
+	Error string `json:"error,omitempty"`
+
+	// passed
+	Passed bool `json:"passed,omitempty"`
 }
 
 // Validate validates this auth check internal server error body
@@ -192,8 +195,8 @@ func (o *AuthCheckInternalServerErrorBody) UnmarshalBinary(b []byte) error {
 // swagger:model AuthCheckOKBody
 type AuthCheckOKBody struct {
 
-	// ok
-	Ok bool `json:"ok,omitempty"`
+	// passed
+	Passed bool `json:"passed,omitempty"`
 }
 
 // Validate validates this auth check o k body

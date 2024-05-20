@@ -11,7 +11,7 @@ type Redis struct {
 }
 
 type Parameters struct {
-	N int `yaml:"N"`
-	M int `yaml:"M"`
-	K int `yaml:"K"`
+	LimitLogin    int `yaml:"limitLogin"`
+	LimitPassword int `yaml:"limitPassword"`
+	LimitIP       int `yaml:"limitIP"`
 }

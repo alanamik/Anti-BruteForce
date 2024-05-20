@@ -1,9 +1,4 @@
 package handlers
 
-type Error struct {
-	Reason string
-}
-
-type Success struct {
-	Status string
-}
+const SuccessAddedStatus = "The IP has been added to list"
+const SuccessDeletedStatus = "The IP has been deleted from list"

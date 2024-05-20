@@ -1,8 +1,10 @@
-POST http://[::]:8000/api/v1/auth
+# BLACKLIST
+GET http://[::]:8000/api/v1/auth
 Content-Type: application/json
 
 {
-    "ip": "",
-    "login": "",
-    "password": ""
+    "ip": "23",
+    "login": "login1",
+    "password": "user1"
 }
+

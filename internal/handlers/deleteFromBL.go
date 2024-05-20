@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"OTUS_hws/Anti-BruteForce/internal/gen/models"
 	"OTUS_hws/Anti-BruteForce/internal/gen/restapi/operations"
 	"OTUS_hws/Anti-BruteForce/internal/redisdb"
 
@@ -8,15 +9,14 @@ import (
 )
 
 func (h *Handler) DeleteFromBL(params operations.BlacklistDeleteParams) middleware.Responder {
-	ctx := params.HTTPRequest.Context()
-	err := h.redisServer.DeleteFromList(ctx, params.HTTPRequest.Host, redisdb.Blacklist)
+
+	err := h.abf.RedisServer.DeleteFromList(params.HTTPRequest.Context(), *params.Body.IP, redisdb.Blacklist)
 	if err != nil {
-		return operations.NewBlacklistDeleteInternalServerError().WithPayload(&operations.BlacklistDeleteInternalServerErrorBody{
-			Ok: err.Error(),
-		})
+		return operations.NewBlacklistDeleteInternalServerError().WithPayload(&models.Error500{
+			Error: err.Error(),
+		},
+		)
 	}
 
-	return operations.NewBlacklistDeleteOK().WithPayload(&operations.BlacklistDeleteOKBody{
-		Ok: "The IP has been successfully deleted from the list",
-	})
+	return operations.NewBlacklistDeleteOK().WithPayload(&models.Status200{Status: SuccessDeletedStatus})
 }

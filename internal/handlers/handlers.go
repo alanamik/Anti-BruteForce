@@ -1,30 +1,19 @@
 package handlers
 
 import (
+	"OTUS_hws/Anti-BruteForce/internal/antibrutforce"
 	"OTUS_hws/Anti-BruteForce/internal/gen/restapi/operations"
-	"OTUS_hws/Anti-BruteForce/internal/redisdb"
-	"time"
 )
-
-const (
-	requestsPerMinutes = 10
-)
-
-type Bucket struct {
-	Blocked  bool
-	N        int64
-	Requests []time.Time
-}
 
 type Handler struct {
-	redisServer *redisdb.RedisClient
-	clients     map[string]Bucket
+	abf *antibrutforce.AntiBrutForce
 }
 
-func NewHandler(redisS *redisdb.RedisClient) *Handler {
+func NewHandler(abf *antibrutforce.AntiBrutForce) *Handler {
 	return &Handler{
-		redisServer: redisS,
-		clients:     make(map[string]Bucket),
+		abf: abf,
+		//redisServer: redisS,
+		//clients:     make(map[string]Bucket),
 	}
 }
 
